@@ -1,0 +1,23 @@
+# dependencies
+node_modules/
+
+# env / secrets — never commit API keys
+.env
+.env.local
+.env.*.local
+
+# vercel
+.vercel/
+
+# build artifacts that are generated from src/ (kept out of git; CI rebuilds them)
+public/render.js
+public/theme-init.js
+public/styles/main.css
+public/config/
+
+# os / editor
+.DS_Store
+Thumbs.db
+*.log
+.idea/
+.vscode/

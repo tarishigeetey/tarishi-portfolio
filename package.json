@@ -1,0 +1,22 @@
+{
+  "name": "tarishi-portfolio",
+  "version": "1.0.0",
+  "description": "Data + AI Engineer portfolio with an interactive, LLM-powered portfolio bot.",
+  "type": "module",
+  "private": true,
+  "author": "Tarishi Geetey",
+  "license": "MIT",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "npm run build && node scripts/serve.mjs",
+    "test": "node --test",
+    "format": "prettier --write \"src/**/*.{js,css}\" \"api/**/*.js\" \"scripts/**/*.mjs\"",
+    "format:check": "prettier --check \"src/**/*.{js,css}\" \"api/**/*.js\" \"scripts/**/*.mjs\""
+  },
+  "devDependencies": {
+    "prettier": "^3.3.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

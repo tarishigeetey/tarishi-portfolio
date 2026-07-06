@@ -343,7 +343,9 @@ function renderBot() {
       t.classList.remove("typing");
       t.textContent = answer;
       history.push({ role: "assistant", content: answer });
-    } catch {
+    } catch (e) {
+      // API rate limit, network error, or server down → fallback to offline answers
+      console.warn("[bot] API failed, falling back to offline:", e.message);
       t.classList.remove("typing");
       t.textContent = localAnswer(q);
     }

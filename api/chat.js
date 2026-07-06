@@ -49,7 +49,7 @@ RULES:
 - If asked "should we hire them," make the honest positive case tied to the facts.
 `.trim();
 
-export default async function handler(req, res) {
+export const handler = async function (req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
     return;
@@ -111,3 +111,6 @@ export default async function handler(req, res) {
 //   const data = await r.json();
 //   const reply = (data.candidates?.[0]?.content?.parts?.[0]?.text || "").trim();
 // ---------------------------------------------------------------
+
+// Default export for Vercel
+export default handler;

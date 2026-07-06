@@ -1,4 +1,4 @@
-# Tarishi Geetey — Portfolio
+# My Portfolio
 
 A fast, accessible portfolio for a Data + AI Engineer, with an interactive
 **portfolio bot** that answers recruiter questions — offline out of the box, or

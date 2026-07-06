@@ -10,16 +10,38 @@
 
 export const config = {
   name: "Tarishi Geetey",
+  tabTitle: "Tarishi's Portfolio", // browser tab text (first name only)
   initials: "TG",
-  avatar: "assets/avatar.png", // set to "" to fall back to initials
+  avatar: "assets/avatar.png", // used for the brand mark + About photo (NOT the bot)
+  botAvatar: "robot", // bot face: "robot" icon, or a path like "assets/bot.png", or "" for initials
   role: "Data + AI Engineer",
+
+  // About section — your story, angled toward Data + AI Engineering.
+  about: {
+    heading: "About",
+    paragraphs: [
+      "Hi 👋",
+      "I'm an engineer who builds AI systems that hold up in production. My focus " +
+        "is retrieval, LLM agents, and the data and backend infrastructure around " +
+        "them — the parts that decide whether a model is a demo or a dependable service.",
+      "Previously a Full-Stack Developer at IBM, I built enterprise applications in " +
+        "Java and Spring Boot: designing scalable microservices, optimizing databases, " +
+        "and integrating Kafka for event-driven data flow — improving efficiency and " +
+        "customer satisfaction, and earning the Star Performer Award twice.",
+      "That backend and data-systems foundation is exactly what I bring to AI " +
+        "engineering. Alongside my professional work I've shipped multiple projects, " +
+        "designed modular architectures, trained students in Java, and represented " +
+        "Madhya Pradesh at IISF 2019. Today I'm focused on building high-performance, " +
+        "production-grade AI systems.",
+    ],
+  },
 
   // Hero
   heroTitleHTML: "I build <em>production</em> AI systems, not demos.",
   lede:
-    "Full-stack Java engineer moving into AI engineering. I build retrieval " +
-    "systems, LLM agents, and the backend plumbing that makes them reliable " +
-    "in production — with tests, monitoring, and Docker, not notebooks.",
+    "I build retrieval systems, LLM agents, and the backend plumbing that " +
+    "makes them reliable in production — with tests, monitoring, and Docker, " +
+    "not notebooks.",
   status: "Open to Data + AI Engineer roles",
 
   // Contact / links (leave "" to hide that icon)
@@ -32,7 +54,7 @@ export const config = {
   // Live bot:
   //   ""          -> offline mode (canned answers below, no API needed)
   //   "/api/chat" -> calls the serverless function (real LLM)
-  botEndpoint: "",
+  botEndpoint: "/api/chat",
   botIntro:
     "Hi — I'm a bot that answers questions about Tarishi. Ask about the RAG " +
     "project, her tech stack, or whether she's a fit for your role.",

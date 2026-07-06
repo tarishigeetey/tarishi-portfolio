@@ -631,3 +631,141 @@ svg.ic {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+
+/* ---------- modal / about popup ---------- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: color-mix(in srgb, var(--ink) 20%, transparent);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  max-width: 750px;
+  width: 100%;
+  padding: 40px;
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+.modal-overlay.open .modal-card {
+  transform: scale(1);
+}
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  padding: 0;
+}
+.modal-close:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  background: var(--paper-2);
+}
+.modal-title {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 28px;
+  margin: 0 0 24px;
+  letter-spacing: -0.01em;
+}
+.modal-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 28px;
+  margin-bottom: 28px;
+}
+@media (max-width: 600px) {
+  .modal-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+.modal-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.modal-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 1px solid var(--line);
+}
+.modal-name {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+.modal-role {
+  font-size: 13px;
+  color: var(--accent);
+  font-weight: 500;
+}
+.modal-body {
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+.modal-body p {
+  margin: 0 0 14px;
+}
+.modal-body p:last-child {
+  margin-bottom: 0;
+}
+.modal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+.modal-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--paper-2);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+.modal-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-wash);
+}

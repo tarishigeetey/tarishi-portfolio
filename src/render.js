@@ -25,7 +25,7 @@ const ICONS = {
 
 /** Head + hero + brand text. */
 function renderIdentity() {
-  document.title = `${CONFIG.name} — ${CONFIG.role}`;
+  document.title = CONFIG.tabTitle || CONFIG.name;
   $("#brand-name").textContent = CONFIG.name;
   if (CONFIG.avatar) {
     const ba = $("#brand-avatar");
@@ -40,15 +40,94 @@ function renderIdentity() {
   $("#foot-line").textContent = CONFIG.footLine;
   $("#copyright").textContent = `© ${new Date().getFullYear()} ${CONFIG.name} · built by hand`;
 
-  if (CONFIG.avatar) {
-    const av = $("#bot-initials");
-    av.textContent = "";
-    av.style.background = "transparent";
-    av.style.padding = "0";
-    av.innerHTML = `<img src="${CONFIG.avatar}" alt="${CONFIG.name}" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />`;
+  // Bot avatar: robot icon, custom image, or initials monogram.
+  const botAv = $("#bot-initials");
+  if (CONFIG.botAvatar === "robot") {
+    botAv.textContent = "";
+    botAv.innerHTML =
+      '<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+      '<rect x="4" y="8" width="16" height="12" rx="2"/>' +
+      '<path d="M12 8V4M9 4h6"/>' +
+      '<circle cx="9" cy="13" r="1.2"/><circle cx="15" cy="13" r="1.2"/>' +
+      '<path d="M9 17h6M2 12v3M22 12v3"/>' +
+      "</svg>";
+  } else if (CONFIG.botAvatar) {
+    botAv.textContent = "";
+    botAv.style.padding = "0";
+    botAv.innerHTML = `<img src="${CONFIG.botAvatar}" alt="Portfolio bot" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" />`;
   } else {
-    $("#bot-initials").textContent = CONFIG.initials;
+    botAv.textContent = CONFIG.initials;
   }
+}
+
+function renderAbout() {
+  const modal = $("#about-modal");
+  if (!modal || !CONFIG.about) return;
+
+  // Populate modal content
+  const paras = (CONFIG.about.paragraphs || []).map((p) => `<p>${p}</p>`).join("");
+  $("#about-modal-body").innerHTML = paras;
+  $("#about-modal-name").textContent = CONFIG.name;
+  $("#about-modal-role").textContent = CONFIG.role;
+
+  const photo = $("#about-modal-photo");
+  if (CONFIG.avatar) {
+    photo.src = CONFIG.avatar;
+    photo.alt = CONFIG.name;
+  } else {
+    photo.style.display = "none";
+  }
+
+  // Contact links inside the modal
+  const linksWrap = $("#about-modal-links");
+  const link = (href, key, label) => {
+    if (!href) return;
+    const url = key === "email" ? "mailto:" + href : href;
+    const ext = /^https?:/.test(url) ? ' target="_blank" rel="noopener"' : "";
+    return `<a href="${url}"${ext}><svg class="ic" viewBox="0 0 24 24">${ICONS[key]}</svg>${label}</a>`;
+  };
+  linksWrap.innerHTML = [
+    link(CONFIG.email, "email", "Email"),
+    link(CONFIG.github, "github", "GitHub"),
+    link(CONFIG.linkedin, "linkedin", "LinkedIn"),
+  ]
+    .filter(Boolean)
+    .join("");
+
+  // Move the modal to be a direct child of <body> so no parent's stacking
+  // context or overflow can trap it — guarantees it overlays the whole page.
+  if (modal.parentElement !== document.body) {
+    document.body.appendChild(modal);
+  }
+
+  // Open / close wiring
+  const openModal = (e) => {
+    if (e) e.preventDefault();
+
+    modal.hidden = false;
+    modal.classList.add("open");
+
+    document.body.style.overflow = "hidden";
+
+    $("#about-close").focus();
+};
+
+const closeModal = () => {
+    modal.classList.remove("open");
+
+    modal.hidden = true;
+
+    document.body.style.overflow = "";
+};
+
+  $("#nav-brand").addEventListener("click", openModal);
+  $("#about-close").addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !modal.hidden) closeModal();
+  });
 }
 
 function renderFooterLinks() {
@@ -309,6 +388,7 @@ function wireChrome() {
 /** Entry point — call once on DOMContentLoaded. */
 export function mount() {
   renderIdentity();
+  renderAbout();
   renderFooterLinks();
   renderProjects();
   renderSkills();

@@ -110,15 +110,15 @@ function renderAbout() {
     document.body.style.overflow = "hidden";
 
     $("#about-close").focus();
-};
+  };
 
-const closeModal = () => {
+  const closeModal = () => {
     modal.classList.remove("open");
 
     modal.hidden = true;
 
     document.body.style.overflow = "";
-};
+  };
 
   $("#nav-brand").addEventListener("click", openModal);
   $("#about-close").addEventListener("click", closeModal);

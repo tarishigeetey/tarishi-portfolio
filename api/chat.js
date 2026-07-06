@@ -93,7 +93,7 @@ export const handler = async function (req, res) {
   } catch (e) {
     res.status(500).json({ error: "Bad request", reply: null });
   }
-}
+};
 
 // ---------------------------------------------------------------
 // PREFER GEMINI (also free, no card, higher daily limit)?
